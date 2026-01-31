@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "174080531045",
+    "project_id": "w4-34-thiraphat",
+    "storage_bucket": "w4-34-thiraphat.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:174080531045:android:eab31ce0a051093360048c",
+        "android_client_info": {
+          "package_name": "com.example.w4_34_thiraphat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJKKk9kZ2cE-dgr8zxBNtCmqNZb47ceGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
