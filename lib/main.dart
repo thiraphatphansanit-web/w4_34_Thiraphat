@@ -83,10 +83,59 @@ class _MyHomePageState extends State<MyHomePage> {
         TextField(decoration: InputDecoration(labelText: "แนวเพลง"),
         controller: _songTypeCtrl,
         ),
-        ElevatedButton(onPressed: addSong, child: Text("บันทึก"))
+        ElevatedButton(onPressed: addSong, child: Text("บันทึก")),
 
-        Expanded(child: child)
+        Expanded(child:
+        StreamBuilder(stream: FirebaseFirestore.instance.collection("songs").snapshots(),
+            builder: (context,snapshot){
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return Center(child: CircularProgressIndicator(),);
+              }
+              if(snapshot.hasError){
+                return Center(child: Text(snapshot.error.toString()),);
+              }
+              
+              final docs = snapshot.data!.docs;
+              
+              return GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10
+                  ),
+                  itemBuilder: (context, index){
+                    final songs = docs[index];
+                    final s = songs.data();
+                    
+                    return InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (_)=> SongDetail(song: s)));
+                      },
+                      child: Card(child: Text(s["songName"])),);
+                  });
+            }))
       ])),
     );
   }
+}
+
+class SongDetail extends StatelessWidget{
+  
+  final song;
+  
+  const SongDetail({super.key,required this.song});
+
+  @override
+  Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar( title: Text("song Detail"),),
+    body: Column(children: [
+      Text(song("songName")),
+      Text(song("artis")),
+      Text(song("songType")),
+
+    ],),
+  ) ; 
+  }
+
 }
